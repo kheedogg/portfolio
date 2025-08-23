@@ -2,6 +2,7 @@ import { CONFIG } from "site.config"
 import Image from "next/image"
 import React from "react"
 import styled from "@emotion/styled"
+import Link from "next/link"
 
 type Props = {
   className?: string
@@ -24,6 +25,11 @@ const MobileProfileCard: React.FC<Props> = () => {
             <div className="top">{CONFIG.profile.name}</div>
             <div className="mid">{CONFIG.profile.role}</div>
             <div className="btm">{CONFIG.profile.bio}</div>
+            <Link href="/resume" className="resume-link">
+              <button className="resume-btn">
+                📄 View Resume
+              </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -71,6 +77,31 @@ const StyledWrapper = styled.div`
         > .btm {
           font-size: 0.875rem;
           line-height: 1.25rem;
+          margin-bottom: 0.75rem;
+        }
+        .resume-link {
+          text-decoration: none;
+          display: inline-block;
+        }
+        .resume-btn {
+          padding: 0.35rem 0.75rem;
+          background-color: ${({ theme }) => theme.colors.blue9};
+          color: white;
+          border: none;
+          border-radius: 0.375rem;
+          font-size: 0.75rem;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.2s;
+          display: flex;
+          align-items: center;
+          gap: 0.25rem;
+          
+          &:hover {
+            background-color: ${({ theme }) => theme.colors.blue10};
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          }
         }
       }
     }

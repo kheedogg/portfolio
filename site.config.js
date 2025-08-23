@@ -6,8 +6,8 @@ const CONFIG = {
     role: "Data/Backend Engineer",
     bio: "데이터 흐름을 관리하며 안정적인 서비스 제공으로 원할한 사용자 경험을 만들어내는 것에 집중하는 개발자입니다.",
     email: "kheedogg@gmail.com",
-    linkedin: "https://www.linkedin.com/in/kheedogg/",
-    github: "https://github.com/kheedogg",
+    linkedin: "kheedogg",
+    github: "kheedogg",
     instagram: "",
   },
   projects: [
