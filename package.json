@@ -10,6 +10,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "export": "next build",
+    "deploy": "next build && touch out/.nojekyll",
     "postbuild": "next-sitemap --config next-sitemap.config.js",
     "lint": "next lint"
   },
