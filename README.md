@@ -1,144 +1,152 @@
-# morethan-log
+# 김도희 - Portfolio & Tech Blog
 
-<img width="1715" alt="image" src="https://user-images.githubusercontent.com/72514247/209824600-ca9c8acc-6d2d-4041-9931-43e34b8a9a5f.png">
+<img width="1715" alt="Portfolio Preview" src="https://user-images.githubusercontent.com/72514247/209824600-ca9c8acc-6d2d-4041-9931-43e34b8a9a5f.png">
 
-Next.js static blog using Notion as a Content Management System (CMS). Supports both Blog format Post as well as Page format for Resume. Deployed using Vercel.
+Next.js로 구축된 정적 블로그 포트폴리오 사이트입니다. Notion을 CMS(Content Management System)로 사용하여 블로그 포스트와 이력서 페이지를 모두 지원합니다. GitHub Pages를 통해 배포됩니다.
 
-[Demo Blog](https://morethan-log.vercel.app) | [Demo Resume](https://morethan-log.vercel.app/resume)
+[Live Site](https://kheedogg.github.io/portfolio) | [GitHub Repository](https://github.com/kheedogg/portfolio)
+
+## About Me
+
+**김도희 (Dohee Kim)**
+- 🎯 Data/Backend Engineer  
+- 📧 kheedogg@gmail.com
+- 🔗 [GitHub](https://github.com/kheedogg) | [LinkedIn](https://www.linkedin.com/in/kheedogg/)
+
+데이터 흐름을 관리하며 안정적인 서비스 제공으로 원활한 사용자 경험을 만들어내는 것에 집중하는 개발자입니다.
 
 ## Features
 
-**📒 Writing posts using notion**
+**📒 Notion을 활용한 포스트 작성**
+- GitHub에 커밋할 필요 없이 웹사이트에 포스팅 가능
+- Notion에서 작성한 포스트가 자동으로 사이트에 업데이트
 
-- No need of commiting to Github for posting anything to your website.
-- Posts made on Notion are automaticaly updated on your site.
+**📄 이력서 페이지로 활용 가능**
+- Notion을 사용해 풀페이지 사이트 생성 유용
+- 이력서, 포트폴리오 등으로 활용 가능
 
-**📄 Use as a page as resume**
+**👀 SEO 친화적**
+- 포스트용 OG 이미지(썸네일!) 동적 생성
+- 포스트용 사이트맵 동적 생성
 
-- Useful for generating full page sites using Notion.
-- Can be used for Resume, Portfolios etc.
+**🤖 설정을 통한 커스터마이징 및 다양한 플러그인 지원**
+- Config를 통해 프로필 정보 업데이트 가능 (`site.config.js`)
+- Google Analytics, Search Console, GitHub Issues를 활용한 댓글(Utterances) 또는 Cusdis 지원
 
-**👀 SEO friendly**
+## Tech Stack
 
-- Dynamically generates OG IMAGEs (thumbnails!) for posts. ([og-image-korean](https://github.com/morethanmin/og-image-korean)).
-- Dynamically creates sitemap for posts.
-
-**🤖 Customisable and Supports various plugin through CONFIG**
-
-- Your profile information can be updated through Config. (`site.config.js`)
-- Plugins support includes, Google Analytics, Search Console and also Commenting using Github Issues(Utterances) or Cusdis.
+- **Framework**: Next.js 13 (Pages Router)
+- **Styling**: Emotion, Tailwind CSS
+- **CMS**: Notion API
+- **Deployment**: GitHub Pages
+- **Language**: TypeScript
+- **State Management**: TanStack Query (React Query)
 
 ## Getting Started
 
-1. Star this repo.
-2. [Fork](https://github.com/morethanmin/morethan-log/fork) the repo to your Profile.
-3. Duplicate [this Notion template](https://morethanmin.notion.site/12c38b5f459d4eb9a759f92fba6cea36?v=2e7962408e3842b2a1a801bf3546edda), and Share to Web.
-4. Copy the Web Link and keep note of the Notion Page Id from the Link which will be in this format [username.notion.site/`NOTION_PAGE_ID`?v=`VERSION_ID`]. 
-5. Clone your forked repo and then customize `site.config.js` based on your preference.
-6. Deploy on Vercel, with the following environment variables.
+### Prerequisites
 
-   - `NOTION_PAGE_ID` (Required): The Notion page Id got from the Share to Web URL. This is not the entire URL, but just the NOTION_PAGE_ID part as shown above.
-   - `NEXT_PUBLIC_GOOGLE_MEASUREMENT_ID` : For Google analytics Plugin.
-   - `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` : For Google search console Plugin.
-   - `NEXT_PUBLIC_NAVER_SITE_VERIFICATION` : For Naver search advisor Plugin.
-   - `NEXT_PUBLIC_UTTERANCES_REPO` : For Utterances Plugin.
+- Node.js 18+
+- Notion 계정
+- GitHub 계정
 
-## 10 Steps to build your own morethan-log (by 23.06.23)
+### Installation
 
-<details>
-   <summary> Click to see guide </summary>
-   
-   0. Prepare Notion, Vercel account.
+1. 저장소 클론
+```bash
+git clone https://github.com/kheedogg/portfolio.git
+cd portfolio
+```
 
-   1. ⭐ `Star` and `Fork` this repo.
-   <img src='https://github.com/jhk0530/morethan-log/assets/6457691/b0421776-2bfe-42bc-ae31-d90206fd5789' width = '500'>
-   <img src='https://github.com/jhk0530/morethan-log/assets/6457691/185a8e4c-4ae2-4a38-b6f4-dc2a06a45c28' width = '500'>
+2. 의존성 설치
+```bash
+npm install --legacy-peer-deps
+```
 
-   2. As you `click` the [Notion template](https://quasar-season-ed5.notion.site/12c38b5f459d4eb9a759f92fba6cea36?v=2e7962408e3842b2a1a801bf3546edda), you will see this notion page in your browser. Click `Duplicate` button(복제 in image) in right top.
-   <img src='https://github.com/jhk0530/morethan-log/assets/6457691/a5375429-28f0-4bba-a355-0d391cad58db' width = '500'>
+3. 환경변수 설정
+`.env.local` 파일을 생성하고 다음 내용을 추가:
+```env
+# Notion Database Page ID (Required)
+NOTION_PAGE_ID=your_notion_page_id
 
-   3. And you will see `notion page in notion app` in your account.
-   <img src='https://github.com/jhk0530/morethan-log/assets/6457691/09af5533-43d9-48e5-95eb-dcac84c97c1f' width = '500'>
+# Optional Analytics
+NEXT_PUBLIC_GOOGLE_MEASUREMENT_ID=
+NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=
+NEXT_PUBLIC_NAVER_SITE_VERIFICATION=
+NEXT_PUBLIC_UTTERANCES_REPO=
+```
 
-   4. Click `Share` and `Publish` in right top, and check web link. (Copy web link)
-   <img src='https://github.com/jhk0530/morethan-log/assets/6457691/886fe4a2-79ca-4dbc-b1e1-93984e7e3f44' width = '500'>
-   
-   5. `Modify` **site.config.js** file in **your** forked repo.
-   > 💡 NOTE. I changed **2 RED PART**
-   <img src='https://github.com/jhk0530/morethan-log/assets/6457691/3d9c0da5-92bc-4372-8752-7bfc810b4986' width = '500'>
+4. 개발 서버 실행
+```bash
+npm run dev
+```
 
-   6. Move and `login` to vercel.
-   <img src='https://github.com/jhk0530/morethan-log/assets/6457691/07742ad0-4766-43b0-9ebd-5311f9711bc2' width = '500'>
+5. 브라우저에서 [http://localhost:3000](http://localhost:3000) 접속
 
-   7. `Build` new project using **Add New...**
-   <img src='https://github.com/jhk0530/morethan-log/assets/6457691/517d46be-c9bf-4181-aaa5-e9bd2fcdc822' width = '500'>
+### Configuration
 
-   8. `Import` **your forked morethan-log repository**
-   <img src='https://github.com/jhk0530/morethan-log/assets/6457691/07742ad0-4766-43b0-9ebd-5311f9711bc2' width = '500'>
+`site.config.js` 파일에서 개인 정보를 수정하세요:
 
-   9. `Add` **Environment variabes** to vercel project
-   <img src='https://github.com/jhk0530/morethan-log/assets/6457691/703b50a3-3a90-4915-ab73-1baca4c285f8' width = '500'>
+```javascript
+const CONFIG = {
+  profile: {
+    name: "김도희",
+    role: "Data/Backend Engineer", 
+    bio: "데이터 흐름을 관리하며...",
+    email: "kheedogg@gmail.com",
+    github: "https://github.com/kheedogg",
+    linkedin: "https://www.linkedin.com/in/kheedogg/",
+  },
+  blog: {
+    title: "Dohee Kim - Portfolio & Tech Blog",
+    description: "개인 포트폴리오와 기술 블로그",
+  },
+  // ... 기타 설정
+}
+```
 
-   10. `Wait` for the deployment to complete. After the deployment is successful, you should see an image like the one below.
-   <img src='https://github.com/jhk0530/morethan-log/assets/6457691/a7d72caa-4354-4f81-9577-c773faeed7c6' width = '500'>
+## Deployment
 
-   🥳 Congratulations. Now check out your blog
-   
-   <img src='https://github.com/jhk0530/morethan-log/assets/6457691/3876a273-a270-47ef-a2ad-663519d9e537' width = '500'>
+### GitHub Pages
 
-</details>
+1. GitHub Actions 워크플로우가 자동으로 설정됨
+2. `main` 브랜치에 push하면 자동 배포
+3. `https://[username].github.io/portfolio`에서 확인
 
-## FAQ
+### Manual Build
 
-<details>
-   <summary> Click to see FAQ </summary>
-   Q1: If you finish making avatar.svg, How to make favicon.ico and apple-touch-icon.png?
-   
-   A1: check out https://www.favicon-generator.org/
-   
-   Q2: Is it necessary to set up a sitemap file?   
-   A2: The system will dynamically create a sitemap.xml, so there is no need for manual setup.
+```bash
+npm run build
+npm run export
+```
 
-   Q3: Why don’t Notion posts update automatically?   
-   A3: Please set the revalidateTime in site.config.js and observe how long it takes to update.
-   
-   Q4: What should be entered for NEXT_PUBLIC_GOOGLE_MEASUREMENT_ID and NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION in site.config.js?
-   A4: You can check https://github.com/morethanmin/morethan-log/issues/203. Please note that updates may take some time to take effect after setting.
+## Project Structure
 
-If you encounter any other issues, please feel free to add them to the GitHub README to assist future users. We look forward to your contributions!
+```
+portfolio/
+├── public/                 # 정적 파일
+├── src/
+│   ├── apis/              # Notion API 관련
+│   ├── components/        # 재사용 가능한 컴포넌트
+│   ├── layouts/           # 레이아웃 컴포넌트
+│   ├── pages/             # Next.js 페이지 (Pages Router)
+│   ├── routes/            # 라우트별 컴포넌트
+│   ├── styles/            # 스타일 관련
+│   └── types/             # TypeScript 타입 정의
+├── site.config.js         # 사이트 설정
+└── .env.local            # 환경변수
+```
 
-</details>
+## Based on morethan-log
 
-## Contributing
+이 프로젝트는 [morethan-log](https://github.com/morethanmin/morethan-log)를 기반으로 개인 포트폴리오 사이트로 커스터마이징했습니다.
 
-Check out the [Contributing Guide](.github/CONTRIBUTING.md).
-
-### Contributors
-
-<!--
-Contributors template:
-<a href="https://github.com/{username}"><img src="{src}" width="50px" alt="{username}" /></a>&nbsp;&nbsp;
--->
-
-<a href="https://github.com/morethanmin/morethan-log/graphs/contributors">
-<img src="https://contrib.rocks/image?repo=morethanmin/morethan-log" />
-</a>
-
-## Support
-
-morethan-log is an MIT-licensed open source project. It can grow thanks to the sponsors and support from the amazing backers.
-
-### Sponsors
-
-<!--
-Sponsors template:
-<a href="https://github.com/{uesrname}"><img src="{src}" width="50px" alt="{username}" /></a>&nbsp;&nbsp;
--->
-
-<p>
-<a href="https://github.com/siyeons"><img src="https://avatars.githubusercontent.com/u/35549653?v=4" width="50px" alt="siyeons" /></a>&nbsp;&nbsp;
-</p>
+Original morethan-log 개발자: [@morethanmin](https://github.com/morethanmin)
 
 ## License
 
 The [MIT License](LICENSE).
+
+---
+
+⚡ **Built with passion for clean code and great user experience**
