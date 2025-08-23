@@ -202,7 +202,7 @@ const ResumePage: NextPageWithLayout = () => {
         <Header>
           <ProfilePhotoWrapper>
             <Image 
-              src="/doheekim_resume_photo.jpeg" 
+              src={process.env.NODE_ENV === 'production' ? "/portfolio/doheekim_resume_photo.jpeg" : "/doheekim_resume_photo.jpeg"}
               alt="김도희 프로필 사진" 
               fill
               style={{ objectFit: 'cover' }}
