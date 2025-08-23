@@ -3,6 +3,7 @@ import Image from "next/image"
 import React from "react"
 import { CONFIG } from "site.config"
 import { Emoji } from "src/components/Emoji"
+import Link from "next/link"
 
 type Props = {}
 
@@ -20,6 +21,11 @@ const ProfileCard: React.FC<Props> = () => {
           <div className=" name">{CONFIG.profile.name}</div>
           <div className="role">{CONFIG.profile.role}</div>
           <div className="text-sm mb-2">{CONFIG.profile.bio}</div>
+          <Link href="/resume" className="resume-link">
+            <button className="resume-btn">
+              📄 View Resume
+            </button>
+          </Link>
         </div>
       </div>
     </StyledWrapper>
@@ -59,6 +65,7 @@ const StyledWrapper = styled.div`
       padding: 0.5rem;
       flex-direction: column;
       align-items: center;
+      text-align: center;
       .name {
         font-size: 1.25rem;
         line-height: 1.75rem;
@@ -66,7 +73,7 @@ const StyledWrapper = styled.div`
         font-weight: 700;
       }
       .role {
-        margin-bottom: 1rem;
+        margin-bottom: 0.75rem;
         font-size: 0.875rem;
         line-height: 1.25rem;
         color: ${({ theme }) => theme.colors.gray11};
@@ -75,6 +82,31 @@ const StyledWrapper = styled.div`
         margin-bottom: 0.5rem;
         font-size: 0.875rem;
         line-height: 1.25rem;
+      }
+      .resume-link {
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 0.5rem;
+      }
+      .resume-btn {
+        padding: 0.4rem 0.9rem;
+        background-color: ${({ theme }) => theme.colors.blue9};
+        color: white;
+        border: none;
+        border-radius: 0.375rem;
+        font-size: 0.8rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        
+        &:hover {
+          background-color: ${({ theme }) => theme.colors.blue10};
+          transform: translateY(-1px);
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
       }
     }
   }
