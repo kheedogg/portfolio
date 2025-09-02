@@ -15,31 +15,47 @@ export const getPosts = async () => {
   try {
     let id = CONFIG.notionConfig.pageId as string
     
+    console.log("🔍 Notion Page ID:", id)
+    
     if (!id) {
-      console.error("NOTION_PAGE_ID is not configured")
+      console.error("❌ NOTION_PAGE_ID is not configured")
       return []
     }
 
+    console.log("📡 Fetching Notion page...")
     const api = new NotionAPI()
     const response = await api.getPage(id)
+    
+    console.log("📄 Response keys:", Object.keys(response))
+    console.log("📄 Collection count:", Object.keys(response.collection || {}).length)
+    console.log("📄 Block count:", Object.keys(response.block || {}).length)
     
     id = idToUuid(id)
     const collection = Object.values(response.collection)[0]?.value
     const block = response.block
     const schema = collection?.schema
 
+    console.log("🏗️ Collection:", !!collection)
+    console.log("🏗️ Schema:", !!schema)
+    console.log("🏗️ Block for ID:", !!block[id])
+
     const rawMetadata = block[id]?.value
+
+    console.log("📋 Raw metadata type:", rawMetadata?.type)
 
     // Check Type
     if (
       rawMetadata?.type !== "collection_view_page" &&
       rawMetadata?.type !== "collection_view"
     ) {
-      console.warn("Invalid Notion page type:", rawMetadata?.type)
+      console.warn("❌ Invalid Notion page type:", rawMetadata?.type)
+      console.log("Expected: collection_view_page or collection_view")
       return []
     } else {
       // Construct Data
       const pageIds = getAllPageIds(response)
+      console.log("📝 Found page IDs:", pageIds.length)
+      
       const data = []
       
       for (let i = 0; i < pageIds.length; i++) {
