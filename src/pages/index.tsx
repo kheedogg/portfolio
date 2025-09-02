@@ -17,6 +17,7 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       dehydratedState: dehydrate(queryClient),
     },
+    revalidate: CONFIG.revalidateTime || 60, // ISR: site.config.js의 설정 사용
   }
 }
 

@@ -2,7 +2,7 @@ const CONFIG = {
   // profile setting (required)
   profile: {
     name: "김도희",
-    image: process.env.NODE_ENV === 'production' ? "/portfolio/avatar.svg" : "/avatar.svg", // Auto-deploy test - If you want to create your own notion avatar, check out https://notion-avatar.vercel.app
+    image: "/avatar.svg", // Vercel 배포 시 경로 수정 불필요
     role: "Data/Backend Engineer",
     bio: "데이터 흐름을 관리하며 안정적인 서비스 제공으로 원할한 사용자 경험을 만들어내는 것에 집중하는 개발자입니다.",
     email: "kheedogg@gmail.com",
@@ -24,7 +24,7 @@ const CONFIG = {
   },
 
   // CONFIG configration (required)
-  link: "https://kheedogg.github.io/portfolio",
+  link: "https://your-domain.vercel.app", // Vercel 배포 후 실제 도메인으로 변경
   since: 2025, // If leave this empty, current year will be used.
   lang: "en-US", // ['en-US', 'zh-CN', 'zh-HK', 'zh-TW', 'ja-JP', 'es-ES', 'ko-KR']
   ogImageGenerateURL: "https://og-image-korean.vercel.app", // The link to generate OG image, don't end with a slash
@@ -69,7 +69,7 @@ const CONFIG = {
     },
   },
   isProd: process.env.VERCEL_ENV === "production", // distinguish between development and production environment (ref: https://vercel.com/docs/environment-variables#system-environment-variables)
-  revalidateTime: 21600 * 7, // revalidate time for [slug], index
+  revalidateTime: 60, // revalidate time for [slug], index - 60초마다 ISR 업데이트
 }
 
 module.exports = { CONFIG }

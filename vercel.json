@@ -1,0 +1,15 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "env": {
+    "NOTION_PAGE_ID": "@notion_page_id"
+  },
+  "build": {
+    "env": {
+      "NOTION_PAGE_ID": "@notion_page_id"
+    }
+  }
+}
