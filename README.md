@@ -94,8 +94,8 @@ const CONFIG = {
     role: "Data/Backend Engineer", 
     bio: "데이터 흐름을 관리하며...",
     email: "kheedogg@gmail.com",
-    github: "https://github.com/kheedogg",
-    linkedin: "https://www.linkedin.com/in/kheedogg/",
+    github: "kheedogg",
+    linkedin: "kheedogg",
   },
   blog: {
     title: "Dohee Kim - Portfolio & Tech Blog",
