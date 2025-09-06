@@ -23,8 +23,10 @@ export const getStaticPaths = async () => {
     const filteredPost = filterPosts(posts, filter)
 
     return {
-      paths: filteredPost.map((row) => `/${row.slug}`),
-      fallback: false,
+      paths: filteredPost
+        .filter((row) => row.slug !== 'resume')  // resume 경로 제외
+        .map((row) => `/${row.slug}`),
+      fallback: 'blocking', // ISR: 새로운 페이지 요청 시 서버에서 생성
     }
   } catch (error) {
     console.error("Error in getStaticPaths:", error)
@@ -53,16 +55,26 @@ export const getStaticProps: GetStaticProps = async (context) => {
     }
 
     const recordMap = await getRecordMap(postDetail.id)
+    
+    // recordMap이 너무 큰 경우 최소화
+    const minimalRecordMap = {
+      ...recordMap,
+      // collection_query 제거 (큰 데이터이며 필수 아님)
+      collection_query: {},
+      // signed_urls 제거 (임시 URL이며 재생성 가능)
+      signed_urls: {}
+    }
 
     await queryClient.prefetchQuery(queryKey.post(`${slug}`), () => ({
       ...postDetail,
-      recordMap,
+      recordMap: minimalRecordMap,
     }))
 
     return {
       props: {
         dehydratedState: dehydrate(queryClient),
       },
+      revalidate: 60, // ISR: 60초마다 재생성
     }
   } catch (error) {
     console.error("Error in getStaticProps for slug:", slug, error)

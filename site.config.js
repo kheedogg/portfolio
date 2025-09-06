@@ -2,7 +2,7 @@ const CONFIG = {
   // profile setting (required)
   profile: {
     name: "김도희",
-    image: process.env.NODE_ENV === 'production' ? "/portfolio/avatar.svg" : "/avatar.svg",
+    image: "/avatar.svg",
     role: "Data/Backend Engineer",
     bio: "데이터 흐름을 관리하며 안정적인 서비스 제공으로 원할한 사용자 경험을 만들어내는 것에 집중하는 개발자입니다.",
     email: "kheedogg@gmail.com",
@@ -24,14 +24,14 @@ const CONFIG = {
   },
 
   // CONFIG configration (required)
-  link: "https://kheedogg.github.io/portfolio",
+  link: "https://portfolio-peach-three-14.vercel.app/",
   since: 2025, // If leave this empty, current year will be used.
   lang: "en-US", // ['en-US', 'zh-CN', 'zh-HK', 'zh-TW', 'ja-JP', 'es-ES', 'ko-KR']
   ogImageGenerateURL: "https://og-image-korean.vercel.app", // The link to generate OG image, don't end with a slash
 
   // notion configuration (required)
   notionConfig: {
-    pageId: process.env.NOTION_PAGE_ID || "6f092c0d01c34f2f874946944dd30242",
+    pageId: process.env.NOTION_PAGE_ID,
   },
 
   // plugin configuration (optional)
