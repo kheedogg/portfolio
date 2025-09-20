@@ -137,11 +137,15 @@ portfolio/
 └── .env.local            # 환경변수
 ```
 
-## Based on morethan-log
+## Credits
 
+### Based on morethan-log
 이 프로젝트는 [morethan-log](https://github.com/morethanmin/morethan-log)를 기반으로 개인 포트폴리오 사이트로 커스터마이징했습니다.
 
 Original morethan-log 개발자: [@morethanmin](https://github.com/morethanmin)
+
+### Logo
+사이트 로고는 [LogoAI](https://www.logoai.com/)를 사용하여 생성했습니다.
 
 ## License
 

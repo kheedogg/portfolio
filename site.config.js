@@ -20,7 +20,8 @@ const CONFIG = {
   blog: {
     title: "Dohee Kim - Portfolio & Tech Blog",
     description: "개인 포트폴리오와 기술 블로그",
-    scheme: "dark", // 'light' | 'dark' | 'system'
+    scheme: "dark", // 'light' | 'dark' | 'system',
+    logo: "/logo.png",  // 로고 비활성화 (텍스트로 표시)
   },
 
   // CONFIG configration (required)
