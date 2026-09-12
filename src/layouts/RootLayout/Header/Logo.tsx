@@ -2,16 +2,19 @@ import Link from "next/link"
 import Image from "next/image"
 import { CONFIG } from "site.config"
 import styled from "@emotion/styled"
+import useScheme from "src/hooks/useScheme"
 
 const Logo = () => {
+  const [scheme] = useScheme()
+
   return (
     <StyledWrapper href="/" aria-label={CONFIG.blog.title}>
-      <Image 
-        src={CONFIG.blog.logo} 
-        alt={CONFIG.blog.title} 
-        width={300} 
-        height={100}
-        style={{ width: 'auto', height: '75px' }}
+      <Image
+        src={CONFIG.blog.logo[scheme]}
+        alt={CONFIG.blog.title}
+        width={1111}
+        height={312}
+        style={{ width: "auto", height: "44px" }}
         priority
       />
     </StyledWrapper>

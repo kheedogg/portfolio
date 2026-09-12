@@ -21,7 +21,11 @@ const CONFIG = {
     title: "Dohee Kim - Portfolio & Tech Blog",
     description: "개인 포트폴리오와 기술 블로그",
     scheme: "dark", // 'light' | 'dark' | 'system',
-    logo: "/logo.png",  // 로고 비활성화 (텍스트로 표시)
+    // 헤더 배경이 라이트 97%, 다크 11%라 글씨 색이 다른 두 장을 쓴다
+    logo: {
+      light: "/logo-light.png", // 밝은 배경용 (검정 글씨)
+      dark: "/logo-dark.png", // 어두운 배경용 (흰 글씨)
+    },
   },
 
   // CONFIG configration (required)
