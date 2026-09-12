@@ -2,6 +2,8 @@ import { NextPageWithLayout } from "../types"
 import MetaConfig from "src/components/MetaConfig"
 import { CONFIG } from "../../site.config"
 import styled from "@emotion/styled"
+import Image from "next/image"
+import { AiOutlineGithub, AiOutlineLink } from "react-icons/ai"
 
 /**
  * 이력서는 프로젝트 단위로 보여준다.
@@ -15,6 +17,10 @@ type Project = {
   summary: string
   metrics?: { value: string; label: string }[]
   stack?: string[]
+  /** 배포된 화면을 직접 캡처한 것만 넣는다. 없으면 이미지 슬롯 자체가 없다. */
+  image?: string
+  /** 실제로 열리는 링크만 넣는다. 비공개 저장소는 걸지 않는다. */
+  links?: { label: string; href: string }[]
 }
 
 const WORK_PROJECTS: Project[] = [
@@ -131,6 +137,11 @@ const SIDE_PROJECTS: Project[] = [
     summary:
       "Notion API를 CMS로 쓰는 블로그와 이력서를 한 사이트로 묶었습니다. 다크/라이트 모드와 댓글을 지원하고 Vercel로 자동 배포합니다.",
     stack: ["Next.js", "TypeScript", "Emotion", "TanStack Query", "Vercel"],
+    image: "/projects/tech-blog.jpg",
+    links: [
+      { label: "GitHub", href: "https://github.com/kheedogg/portfolio" },
+      { label: "Demo", href: "https://portfolio-doheekim.vercel.app" },
+    ],
   },
   {
     name: "Universal Timer — 자연어 타이머",
@@ -138,6 +149,11 @@ const SIDE_PROJECTS: Project[] = [
     summary:
       "자유 형식 문장을 그대로 받아 타이머를 맞춥니다. \"꼬들 라면 먹을거야\"를 3분으로 해석하는 식으로, Gemini 2.0 Flash로 자연어를 시간으로 변환합니다.",
     stack: ["Flutter", "Dart", "Gemini 2.0 Flash", "GitHub Pages"],
+    image: "/projects/universal-timer.jpg",
+    links: [
+      { label: "GitHub", href: "https://github.com/kheedogg/universal_timer" },
+      { label: "Demo", href: "https://kheedogg.github.io/universal_timer" },
+    ],
   },
   {
     name: "어린이 천문대 태양계 수업 페이지",
@@ -145,6 +161,11 @@ const SIDE_PROJECTS: Project[] = [
     summary:
       "천문대에서 수업하는 동생을 위해 만든 영/한 이중언어 수업 페이지입니다. 8개 행성이 공전하는 인터랙티브 애니메이션과 별자리·퀴즈·학습지 모드를 담았고, 수업 중 공전을 멈추는 버튼과 모션 최소화 접근성을 지원합니다. 빌드와 의존성 없이 동작합니다.",
     stack: ["HTML", "CSS", "JavaScript", "GitHub Pages"],
+    image: "/projects/solar-system.jpg",
+    links: [
+      { label: "GitHub", href: "https://github.com/kheedogg/solar-system-class" },
+      { label: "Demo", href: "https://kheedogg.github.io/solar-system-class" },
+    ],
   },
 ]
 
@@ -162,6 +183,9 @@ const ACADEMIC_PROJECTS: Project[] = [
     summary:
       "시계열 분석(ARIMA·SARIMA·Holt's Winter)과 회귀 모델로 확진자 수를 예측하고, 사망률·회복률 기반으로 국가를 3개 그룹으로 분류했습니다.",
     stack: ["Python", "Time Series", "Clustering"],
+    links: [
+      { label: "GitHub", href: "https://github.com/kheedogg/COVID-19_Analysis" },
+    ],
   },
   {
     name: "심전도 기반 질병 분류 모델",
@@ -169,6 +193,9 @@ const ACADEMIC_PROJECTS: Project[] = [
     summary:
       "심전도 3만 건을 6개 질병으로 분류하는 CNN 모델과 전처리 파이프라인(디노이징·정규화)을 구축했습니다.",
     stack: ["TensorFlow/Keras", "신호처리"],
+    links: [
+      { label: "GitHub", href: "https://github.com/kheedogg/ECG_BeatType" },
+    ],
   },
   {
     name: "KBL 올스타 선수 선발 분석",
@@ -176,6 +203,7 @@ const ACADEMIC_PROJECTS: Project[] = [
     summary:
       "인기투표가 아닌 3년 시즌 데이터로 올스타 12명을 뽑았습니다. 능력치 변동이 적고 기대치를 채우는 '안정성'을 기준으로, 포지션별 능력(PCA)·경기 환경 적응력(Random Forest)·성장 가능성을 함께 봤습니다.",
     stack: ["R", "PCA", "Random Forest"],
+    links: [{ label: "GitHub", href: "https://github.com/kheedogg/KBL" }],
   },
 ]
 
@@ -215,6 +243,17 @@ const PUBLICATIONS = [
 
 const ProjectCard = ({ data }: { data: Project }) => (
   <StyledCard>
+    {data.image && (
+      <div className="shot">
+        <Image
+          src={data.image}
+          alt={`${data.name} 화면`}
+          width={1200}
+          height={750}
+          sizes="(max-width: 900px) 100vw, 50vw"
+        />
+      </div>
+    )}
     <span className="org">{data.org}</span>
     <h3>{data.name}</h3>
     <p className="summary">{data.summary}</p>
@@ -225,6 +264,16 @@ const ProjectCard = ({ data }: { data: Project }) => (
             <b>{m.value}</b>
             <span>{m.label}</span>
           </div>
+        ))}
+      </div>
+    )}
+    {data.links && (
+      <div className="links">
+        {data.links.map((l) => (
+          <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer">
+            {l.label === "GitHub" ? <AiOutlineGithub /> : <AiOutlineLink />}
+            {l.label}
+          </a>
         ))}
       </div>
     )}
@@ -381,6 +430,7 @@ ResumePage.getLayout = (page) => page
 export default ResumePage
 
 const StyledCard = styled.article`
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   padding: 1.5rem;
@@ -389,6 +439,51 @@ const StyledCard = styled.article`
     theme.scheme === "light" ? "white" : theme.colors.gray4};
   border: 1px solid ${({ theme }) => theme.colors.gray5};
 
+  /* 18개 중 이미지가 붙는 건 3개뿐이라, 이미지 카드만 훌쩍 커지면
+     그리드에 구멍이 생긴다. 높이를 고정해 카드 간 차이를 줄이고,
+     비율이 제각각이므로 contain으로 넣어 잘리지 않게 한다. */
+  > .shot {
+    margin: -1.5rem -1.5rem 1.25rem;
+    /* 캡처는 전부 16:10이다. 슬롯을 같은 비율로 두면 카드 폭을 꽉 채우면서
+       잘리지도, 좌우에 빈 띠가 생기지도 않는다. */
+    aspect-ratio: 16 / 10;
+    background-color: ${({ theme }) => theme.colors.gray3};
+    border-bottom: 1px solid ${({ theme }) => theme.colors.gray5};
+    border-radius: 1rem 1rem 0 0;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+  > .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3125rem;
+      padding: 0.3125rem 0.625rem;
+      border-radius: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-decoration: none;
+      color: ${({ theme }) => theme.colors.blue11};
+      background-color: ${({ theme }) => theme.colors.blue3};
+
+      svg {
+        font-size: 0.875rem;
+      }
+      :hover {
+        background-color: ${({ theme }) => theme.colors.blue4};
+      }
+    }
+  }
   > .org {
     font-size: 0.75rem;
     letter-spacing: 0.02em;
