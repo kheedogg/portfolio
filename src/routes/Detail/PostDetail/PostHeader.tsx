@@ -50,10 +50,13 @@ const PostHeader: React.FC<Props> = ({ data }) => {
           </div>
           {data.thumbnail && (
             <div className="thumbnail">
+              {/* 커버 비율이 글마다 1.5:1 ~ 5:1로 제각각이라 비율을 고정하지 않는다.
+                  실제 크기를 모르므로 next/image의 unknown dimension 패턴을 쓴다. */}
               <Image
                 src={data.thumbnail}
-                css={{ objectFit: "cover" }}
-                fill
+                width={0}
+                height={0}
+                sizes="(max-width: 1024px) 100vw, 1024px"
                 alt={data.title}
               />
             </div>
@@ -114,15 +117,20 @@ const StyledWrapper = styled.div`
     }
     .thumbnail {
       overflow: hidden;
-      position: relative;
       margin-bottom: 1.75rem;
       border-radius: 1.5rem;
       width: 100%;
       background-color: ${({ theme }) => theme.colors.gray4};
-      padding-bottom: 66%;
+      line-height: 0;
 
-      @media (min-width: 1024px) {
-        padding-bottom: 50%;
+      img {
+        width: 100%;
+        /* 원본 비율 그대로 둔다. 잘리는 곳이 생기지 않는다. */
+        height: auto;
+        /* 세로로 아주 긴 이미지가 화면을 다 먹지 않도록 상한만 둔다.
+           상한에 걸리면 잘라내지 않고 contain으로 여백을 준다. */
+        max-height: 32rem;
+        object-fit: contain;
       }
     }
   }
