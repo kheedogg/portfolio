@@ -38,13 +38,14 @@ const TagList: React.FC<Props> = () => {
         <Emoji>🏷️</Emoji> Tags
       </div>
       <div className="list">
-        {Object.keys(data).map((key) => (
+        {Object.entries(data).map(([key, count]) => (
           <a
             key={key}
             data-active={key === currentTag}
             onClick={() => handleClickTag(key)}
           >
-            {key}
+            <span className="name">{key}</span>
+            <span className="count">{count}</span>
           </a>
         ))}
       </div>
@@ -83,7 +84,12 @@ const StyledWrapper = styled.div`
     }
 
     a {
-      display: block;
+      display: flex;
+      align-items: center;
+      /* 세로 목록에서는 개수를 오른쪽 끝으로 민다.
+         가로 스크롤(모바일)에서는 폭이 내용만큼이라 gap만 적용된다. */
+      justify-content: space-between;
+      gap: 0.5rem;
       padding: 0.25rem;
       padding-left: 1rem;
       padding-right: 1rem;
@@ -99,9 +105,20 @@ const StyledWrapper = styled.div`
       :hover {
         background-color: ${({ theme }) => theme.colors.gray4};
       }
+      .count {
+        font-size: 0.75rem;
+        line-height: 1rem;
+        color: ${({ theme }) => theme.colors.gray9};
+        font-variant-numeric: tabular-nums;
+      }
+
       &[data-active="true"] {
         color: ${({ theme }) => theme.colors.gray12};
         background-color: ${({ theme }) => theme.colors.gray4};
+
+        .count {
+          color: ${({ theme }) => theme.colors.gray11};
+        }
 
         :hover {
           background-color: ${({ theme }) => theme.colors.gray4};
