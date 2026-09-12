@@ -3,7 +3,7 @@ const CONFIG = {
   profile: {
     name: "김도희",
     image: "/avatar.svg",
-    role: "Data/Backend Engineer",
+    role: "Software Engineer",
     bio: "데이터 흐름을 관리하며 안정적인 서비스 제공으로 원할한 사용자 경험을 만들어내는 것에 집중하는 개발자입니다.",
     email: "kheedogg@gmail.com",
     linkedin: "kheedogg",
