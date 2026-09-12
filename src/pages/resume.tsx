@@ -3,7 +3,7 @@ import MetaConfig from "src/components/MetaConfig"
 import { CONFIG } from "../../site.config"
 import styled from "@emotion/styled"
 import Image from "next/image"
-import { AiOutlineGithub, AiOutlineLink } from "react-icons/ai"
+import { AiFillApple, AiOutlineGithub, AiOutlineLink } from "react-icons/ai"
 
 /**
  * 이력서는 프로젝트 단위로 보여준다.
@@ -117,6 +117,12 @@ const SIDE_PROJECTS: Project[] = [
       "정해진 시간마다 짧은 영상을 남기고 친구와 공유하는 앱을 기획부터 배포·운영까지 직접 만들었습니다. 오프라인 업로드 큐와 재시도, 그룹 피드·채팅, 초대 링크/QR 참여, 전원이 1초씩 찍으면 서버가 합본을 만드는 블라인드 주제 릴레이, 신고·차단 등 UGC 안전장치를 담았습니다. 기획·디자인·프론트·백엔드 역할별 에이전트를 구성해 논의시키고 합의된 산출물을 받아 구현했습니다.",
     stack: ["React Native (Expo)", "TypeScript", "Firebase", "EAS Build/Update"],
     image: "/projects/chimeme.jpg",
+    links: [
+      {
+        label: "App Store",
+        href: "https://apps.apple.com/kr/app/id6780712609",
+      },
+    ],
   },
   {
     name: "에이전트 자율 작업 운영 체계",
@@ -274,7 +280,13 @@ const ProjectCard = ({ data }: { data: Project }) => (
       <div className="links">
         {data.links.map((l) => (
           <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer">
-            {l.label === "GitHub" ? <AiOutlineGithub /> : <AiOutlineLink />}
+            {l.label === "GitHub" ? (
+              <AiOutlineGithub />
+            ) : l.label === "App Store" ? (
+              <AiFillApple />
+            ) : (
+              <AiOutlineLink />
+            )}
             {l.label}
           </a>
         ))}
