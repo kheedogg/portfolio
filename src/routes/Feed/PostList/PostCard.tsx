@@ -15,7 +15,7 @@ const PostCard: React.FC<Props> = ({ data }) => {
   const category = (data.category && data.category?.[0]) || undefined
 
   return (
-    <StyledWrapper href={`/${data.slug}`}>
+    <StyledWrapper href={`/${data.urlSlug}`}>
       <article>
         {category && (
           <div className="category">

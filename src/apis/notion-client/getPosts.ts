@@ -3,6 +3,7 @@ import { idToUuid } from "notion-utils"
 
 import getAllPageIds from "src/libs/utils/notion/getAllPageIds"
 import getPageProperties from "src/libs/utils/notion/getPageProperties"
+import { withUrlSlugs } from "src/libs/utils/notion/getUrlSlug"
 import { TPosts } from "src/types"
 
 import { createNotionApi, notionGotOptions } from "./notionApi"
@@ -87,7 +88,8 @@ export const getPosts = async () => {
         return dateB - dateA
       })
 
-      const posts = data as TPosts
+      // URL은 Notion의 slug가 아니라 제목에서 만든다 (slug가 글마다 고유하지 않다)
+      const posts = withUrlSlugs(data as TPosts)
       return posts
     }
   } catch (error) {

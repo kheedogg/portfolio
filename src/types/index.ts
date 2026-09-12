@@ -19,7 +19,10 @@ export type TPost = {
   id: string
   date: { start_date: string }
   type: TPostType[]
+  /** Notion의 slug 속성. 글마다 고유하지 않을 수 있다. */
   slug: string
+  /** 실제 URL로 쓰는 값. 제목에서 만들며 글마다 고유하다. */
+  urlSlug: string
   tags?: string[]
   category?: string[]
   summary?: string

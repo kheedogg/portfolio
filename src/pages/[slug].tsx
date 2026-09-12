@@ -11,6 +11,7 @@ import { queryKey } from "src/constants/queryKey"
 import { dehydrate } from "@tanstack/react-query"
 import usePostQuery from "src/hooks/usePostQuery"
 import { FilterPostsOptions } from "src/libs/utils/notion/filterPosts"
+import { RESERVED_SLUGS } from "src/libs/utils/notion/getUrlSlug"
 
 const filter: FilterPostsOptions = {
   acceptStatus: ["Public", "PublicOnDetail"],
@@ -24,8 +25,9 @@ export const getStaticPaths = async () => {
 
     return {
       paths: filteredPost
-        .filter((row) => row.slug !== 'resume')  // resume 경로 제외
-        .map((row) => `/${row.slug}`),
+        // /resume 등 직접 만든 정적 페이지와 겹치는 경로는 만들지 않는다
+        .filter((row) => !RESERVED_SLUGS.has(row.urlSlug))
+        .map((row) => `/${row.urlSlug}`),
       fallback: 'blocking', // ISR: 새로운 페이지 요청 시 서버에서 생성
     }
   } catch (error) {
@@ -46,11 +48,26 @@ export const getStaticProps: GetStaticProps = async (context) => {
     await queryClient.prefetchQuery(queryKey.posts(), () => feedPosts)
 
     const detailPosts = filterPosts(posts, filter)
-    const postDetail = detailPosts.find((t: any) => t.slug === slug)
-    
+    const postDetail = detailPosts.find((t) => t.urlSlug === slug)
+
     if (!postDetail) {
+      // 이전 주소(Notion slug)로 들어온 요청은 같은 slug의 최신 글로 넘긴다.
+      // detailPosts는 getPosts에서 날짜 내림차순으로 정렬돼 있어 첫 번째가 최신이다.
+      const legacyTarget = detailPosts.find((t) => t.slug === slug)
+      if (legacyTarget && legacyTarget.urlSlug !== slug) {
+        return {
+          redirect: {
+            // Location 헤더에는 비ASCII를 그대로 넣을 수 없다
+            destination: `/${encodeURIComponent(legacyTarget.urlSlug)}/`,
+            permanent: true,
+          },
+        }
+      }
       return {
+        // Notion 일시 오류로 목록이 비었을 수 있다.
+        // revalidate가 없으면 그 404가 재배포 전까지 캐시되므로 반드시 붙인다.
         notFound: true,
+        revalidate: 60,
       }
     }
 
@@ -80,6 +97,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     console.error("Error in getStaticProps for slug:", slug, error)
     return {
       notFound: true,
+      revalidate: 60,
     }
   }
 }
@@ -102,7 +120,7 @@ const DetailPage: NextPageWithLayout = () => {
     image: image,
     description: post.summary || "",
     type: post.type[0],
-    url: `${CONFIG.link}/${post.slug}`,
+    url: `${CONFIG.link}/${post.urlSlug}`,
   }
 
   return (
