@@ -116,6 +116,7 @@ const SIDE_PROJECTS: Project[] = [
     summary:
       "정해진 시간마다 짧은 영상을 남기고 친구와 공유하는 앱을 기획부터 배포·운영까지 직접 만들었습니다. 오프라인 업로드 큐와 재시도, 그룹 피드·채팅, 초대 링크/QR 참여, 전원이 1초씩 찍으면 서버가 합본을 만드는 블라인드 주제 릴레이, 신고·차단 등 UGC 안전장치를 담았습니다. 기획·디자인·프론트·백엔드 역할별 에이전트를 구성해 논의시키고 합의된 산출물을 받아 구현했습니다.",
     stack: ["React Native (Expo)", "TypeScript", "Firebase", "EAS Build/Update"],
+    image: "/projects/chimeme.jpg",
   },
   {
     name: "에이전트 자율 작업 운영 체계",
@@ -123,6 +124,7 @@ const SIDE_PROJECTS: Project[] = [
     summary:
       "에이전트가 자율로 코드를 수정할 때의 경계를 규약으로 확정했습니다. 워크트리 격리 → 작업 → 타입체크·테스트·린트 → PR 생성에서 정지하고, main 머지·배포·스토어 제출은 금지해 구조적으로 배포를 유발할 수 없게 설계했습니다. 실제 사고 3건에서 도출한 규칙이며, 두 저장소가 공유하는 관측 대시보드를 함께 만들었습니다.",
     stack: ["Git worktree", "관측 대시보드", "의사결정 워크시트"],
+    image: "/projects/agent-dashboard.jpg",
   },
   {
     name: "Raccoon English — 영어회화 수업 보조",
@@ -130,6 +132,7 @@ const SIDE_PROJECTS: Project[] = [
     summary:
       "10년간 진행해 온 회화 수업을 돕기 위해, 여러 국가에 흩어진 학생·선생님을 위한 수업 보조 페이지를 만들었습니다. 교과서 PDF 뷰어·주제별 질문 252개 등 수업 5종, 교재별 이어하기, 선생님용 월간 캘린더, 한/영 다국어와 사용자 시간대(UTC 저장 → 로컬 표시)를 지원합니다.",
     stack: ["Node.js", "Express", "pdf.js", "Render"],
+    image: "/projects/raccoon-english.jpg",
   },
   {
     name: "개인 테크 블로그 & 포트폴리오",
