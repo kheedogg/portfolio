@@ -1,10 +1,11 @@
 import { CONFIG } from "site.config"
-import { NotionAPI } from "notion-client"
 import { idToUuid } from "notion-utils"
 
 import getAllPageIds from "src/libs/utils/notion/getAllPageIds"
 import getPageProperties from "src/libs/utils/notion/getPageProperties"
 import { TPosts } from "src/types"
+
+import { createNotionApi, notionGotOptions } from "./notionApi"
 
 /**
  * @param {{ includePages: boolean }} - false: posts only / true: include pages
@@ -23,8 +24,8 @@ export const getPosts = async () => {
     }
 
     console.log("📡 Fetching Notion page...")
-    const api = new NotionAPI()
-    const response = await api.getPage(id)
+    const api = createNotionApi()
+    const response = await api.getPage(id, { gotOptions: notionGotOptions })
     
     console.log("📄 Response keys:", Object.keys(response))
     console.log("📄 Collection count:", Object.keys(response.collection || {}).length)
