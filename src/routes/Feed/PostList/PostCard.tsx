@@ -24,11 +24,14 @@ const PostCard: React.FC<Props> = ({ data }) => {
         )}
         {data.thumbnail && (
           <div className="thumbnail">
+            {/* 커버 비율이 글마다 1.5:1 ~ 5:1로 제각각이라 비율을 고정하지 않는다.
+                실제 크기를 모르므로 next/image의 unknown dimension 패턴을 쓴다. */}
             <Image
               src={data.thumbnail}
-              fill
+              width={0}
+              height={0}
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 100vw, 50vw"
               alt={data.title}
-              css={{ objectFit: "cover" }}
             />
           </div>
         )}
@@ -89,13 +92,22 @@ const StyledWrapper = styled(Link)`
     }
 
     > .thumbnail {
-      position: relative;
       width: 100%;
       background-color: ${({ theme }) => theme.colors.gray2};
-      padding-bottom: 66%;
+      line-height: 0;
+      /* 이미지가 로드되기 전에는 height: auto가 0이라 카드가 붙어버리고
+         왼쪽 위 카테고리 배지가 제목 위에 겹친다. 자리만 잡아둔다.
+         가장 납작한 커버(5:1)도 이 높이를 넘어서 실제로는 여백이 안 생긴다. */
+      min-height: 6rem;
 
-      @media (min-width: 1024px) {
-        padding-bottom: 50%;
+      img {
+        width: 100%;
+        /* 원본 비율 그대로 둔다. 잘리는 곳이 생기지 않는다. */
+        height: auto;
+        /* 세로로 긴 커버가 카드를 너무 길게 만들지 않도록 상한만 둔다.
+           상한에 걸리면 잘라내지 않고 contain으로 여백을 준다. */
+        max-height: 22rem;
+        object-fit: contain;
       }
     }
     > .content {
