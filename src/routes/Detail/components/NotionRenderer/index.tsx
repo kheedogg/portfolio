@@ -83,7 +83,9 @@ const StyledWrapper = styled.div`
   .notion-collection-page-properties {
     display: none !important;
   }
+  /* react-notion-x pins .notion-page to --notion-max-width (720px by default) */
   .notion-page {
+    --notion-max-width: 100%;
     padding: 0;
   }
   .notion-list {

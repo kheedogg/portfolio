@@ -3,6 +3,7 @@ import Logo from "./Logo"
 import ThemeToggle from "./ThemeToggle"
 import styled from "@emotion/styled"
 import { zIndexes } from "src/styles/zIndexes"
+import { variables } from "src/styles/variables"
 
 type Props = {
   fullWidth: boolean
@@ -38,7 +39,7 @@ const StyledWrapper = styled.div`
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    max-width: 1120px;
+    max-width: ${variables.layoutMaxWidth}px;
     height: 3rem;
     margin: 0 auto;
     &[data-full-width="true"] {
