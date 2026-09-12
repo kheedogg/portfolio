@@ -40,7 +40,7 @@ const StyledWrapper = styled.div`
     align-items: center;
     width: 100%;
     max-width: ${variables.layoutMaxWidth}px;
-    height: 3rem;
+    height: ${variables.headerHeight}px;
     margin: 0 auto;
     &[data-full-width="true"] {
       @media (min-width: 768px) {

@@ -11,8 +11,10 @@ import ServiceCard from "./ServiceCard"
 import ContactCard from "./ContactCard"
 import PostList from "./PostList"
 import PinnedPosts from "./PostList/PinnedPosts"
+import { variables } from "src/styles/variables"
 
-const HEADER_HEIGHT = 73
+// 헤더 높이가 바뀌면 sticky 위치도 같이 움직여야 한다. 값은 한 곳에서 가져온다.
+const HEADER_HEIGHT = variables.headerHeight
 
 type Props = {}
 

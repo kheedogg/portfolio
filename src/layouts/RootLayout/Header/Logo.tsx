@@ -14,7 +14,7 @@ const Logo = () => {
         alt={CONFIG.blog.title}
         width={1111}
         height={312}
-        style={{ width: "auto", height: "44px" }}
+        style={{ width: "auto", height: "40px" }}
         priority
       />
     </StyledWrapper>
