@@ -17,11 +17,6 @@ const PostCard: React.FC<Props> = ({ data }) => {
   return (
     <StyledWrapper href={`/${data.urlSlug}`}>
       <article>
-        {category && (
-          <div className="category">
-            <Category>{category}</Category>
-          </div>
-        )}
         {data.thumbnail && (
           <div className="thumbnail">
             {/* 커버 비율이 글마다 1.5:1 ~ 5:1로 제각각이라 비율을 고정하지 않는다.
@@ -35,7 +30,12 @@ const PostCard: React.FC<Props> = ({ data }) => {
             />
           </div>
         )}
-        <div data-thumb={!!data.thumbnail} data-category={!!category} className="content">
+        <div className="content">
+          {category && (
+            <div className="category">
+              <Category>{category}</Category>
+            </div>
+          )}
           <header className="top">
             <h2>{data.title}</h2>
           </header>
@@ -84,20 +84,15 @@ const StyledWrapper = styled(Link)`
       box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
         0 4px 6px -2px rgba(0, 0, 0, 0.05);
     }
-    > .category {
-      position: absolute;
-      top: 1rem;
-      left: 1rem;
-      z-index: 10;
-    }
+
 
     > .thumbnail {
       width: 100%;
       background-color: ${({ theme }) => theme.colors.gray2};
       line-height: 0;
-      /* 이미지가 로드되기 전에는 height: auto가 0이라 카드가 붙어버리고
-         왼쪽 위 카테고리 배지가 제목 위에 겹친다. 자리만 잡아둔다.
-         가장 납작한 커버(5:1)도 이 높이를 넘어서 실제로는 여백이 안 생긴다. */
+      /* 이미지가 로드되기 전에는 height: auto가 0이라 카드가 갑자기 늘어난다.
+         미리 자리를 잡아둔다. 가장 납작한 커버(5:1)도 이 높이를 넘어서
+         실제로는 여백이 생기지 않는다. */
       min-height: 6rem;
 
       img {
@@ -113,11 +108,8 @@ const StyledWrapper = styled(Link)`
     > .content {
       padding: 1rem;
 
-      &[data-thumb="false"] {
-        padding-top: 3.5rem;
-      }
-      &[data-category="false"] {
-        padding-top: 1.5rem;
+      > .category {
+        margin-bottom: 0.5rem;
       }
       > .top {
         display: flex;
